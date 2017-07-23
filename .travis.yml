@@ -10,7 +10,7 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-ce
 install:
-  - pip install molecule docker
+  - pip install --upgrade molecule==1.24.0 docker testinfra==1.6.4
 
 script:
   - molecule test
