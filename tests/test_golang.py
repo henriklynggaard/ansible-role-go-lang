@@ -11,15 +11,8 @@ def test_binary_file_exists(File):
     assert f.is_file
 
 
-def test_go_version(host):
-    result = host.run("/usr/local/go/bin/go version")
-
-    assert result.rc == 0
-    assert "go version go1.8.3 linux/amd64" in result.stdout
-
-
-def test_profile(host):
-    file = host.file("/root/.profile")
+def test_profile(File):
+    file = File("/root/.profile")
 
     assert file.exists
     assert file.is_file
