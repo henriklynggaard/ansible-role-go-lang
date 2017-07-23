@@ -1,0 +1,24 @@
+galaxy_info:
+  author: Henrik Lynggaard Hansen
+  description: Installs Go language
+
+  license: MIT
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Fedora
+    versions:
+    - 24
+    - 25
+
+  - name: Ubuntu
+    versions:
+    - xenial
+    - yakkety
+    - zesty
+
+  galaxy_tags:
+    - go
+
+dependencies: []

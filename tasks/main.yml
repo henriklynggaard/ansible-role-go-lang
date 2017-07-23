@@ -1,0 +1,36 @@
+---
+
+- name: install tar on Fedora 24
+  dnf:
+    name: tar
+    state: present
+  when: ansible_distribution == "Fedora" and ansible_distribution_major_version == "24"
+
+- name: Install Go language
+  unarchive:
+    copy: no
+    src: "{{ golang_download_url}}"
+    dest: "{{ golang_install_directory }}"
+    owner: "{{ golang_install_user}}"
+    group: "{{ golang_install_user}}"
+    creates: "{{ golang_install_directory }}/go/bin/go"
+
+- name: Set GOROOT environment variable
+  lineinfile:
+    path: "~{{ golang_install_user}}/.profile"
+    regexp: '^export GOROOT='
+    line: 'export GOROOT={{ golang_install_directory }}'
+    owner: "{{ golang_install_user}}"
+    group: "{{ golang_install_user}}"
+    create: yes
+  when: golang_install_directory != "/usr/local"
+
+- name: Set PATH environment variable
+  lineinfile:
+    path: "~{{ golang_install_user}}/.profile"
+    regexp: '^export PATH={{ golang_install_directory }}/go/bin'
+    line: 'export PATH={{ golang_install_directory }}/go/bin:$PATH'
+    insertafter: '^export GOROOT='
+    owner: "{{ golang_install_user}}"
+    group: "{{ golang_install_user}}"
+    create: yes
